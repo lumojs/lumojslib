@@ -84,11 +84,9 @@ This project is officially launched under
 
 A place focused on building real-world skills and modern tech solutions.
 
----
 
 > 🚀 Building modern web experiences with simplicity.
 
----
 
 ## 💥 Author
 
