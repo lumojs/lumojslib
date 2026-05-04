@@ -1,0 +1,31 @@
+{
+  "name": "lumo-js",
+  "version": "1.0.0",
+  "description": "Lightweight JavaScript library for smooth UI interactions and custom cursor effects",
+  "main": "dist/lumo.js",
+  "module": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "default": "./dist/lumo.js"
+    }
+  },
+  "keywords": [
+    "javascript",
+    "cursor",
+    "animation",
+    "ui",
+    "library",
+    "effects"
+  ],
+  "author": "Sachin",
+  "license": "MIT",
+  "devDependencies": {
+    "terser": "^5.46.2",
+    "vite": "^8.0.10"
+  }
+}
