@@ -33,6 +33,13 @@ It is designed to be:
 <script src="https://cdn.jsdelivr.net/gh/lumojs/lumojslib/dist/lumo.iife.min.js"></script>
 
 ```
+
+Or
+
+```html
+<script src="https://lumojslib.pages.dev/lumo.iife.min.js"></script>
+
+```
 ---
 
 ## 🧪 Usage
