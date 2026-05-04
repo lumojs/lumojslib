@@ -30,7 +30,7 @@ It is designed to be:
 ## 📦 Installation
 
 ```html
-<script src="YOUR_CDN_LINK/library.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lumojs/lumojslib/dist/lumo.iife.min.js"></script>
 
 ```
 ---
