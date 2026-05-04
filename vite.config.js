@@ -6,7 +6,7 @@ export default defineConfig({
       entry: "src/index.js",
       name: "lumo", // 👈 global name
       formats: ["iife", "es"], // CDN + modern दोनों
-      fileName: (format) => `lumo.${format}.js`
+      fileName: (format) => `lumo.${format}.min.js`
     },
     rollupOptions: {
       output: {
