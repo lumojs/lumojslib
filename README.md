@@ -32,6 +32,7 @@ It is designed to be:
 ```html
 <script src="YOUR_CDN_LINK/library.js"></script>
 
+```
 ---
 
 ## 🧪 Usage
