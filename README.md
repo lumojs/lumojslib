@@ -45,6 +45,8 @@ lumo.snake({
   hideDefaultCursor: true
 });
 
+```
+
 ---
 
 ## 🎯 Philosophy
