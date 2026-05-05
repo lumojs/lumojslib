@@ -27,7 +27,7 @@ It is designed to be:
 
 ---
 
-## 📦 Installation
+## 📦 CDN
 
 ```html
 <script src="https://cdn.jsdelivr.net/gh/lumojs/lumojslib@v1.0.0/dist/lumo.iife.min.js"></script>
@@ -45,7 +45,7 @@ Or
 ## 🧪 Usage
 
 ```js
-lumo.snake({
+lumo.snake(".btn", {
   color: "#00ff88",
   trailCount: 12,
   magnetic: true,
