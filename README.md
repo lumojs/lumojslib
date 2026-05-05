@@ -40,7 +40,7 @@ It is designed to be:
 ## 📦 CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/lumojs/lumojslib@v1.0.0/dist/lumo.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lumojs/lumojslib@v1.1.0/dist/lumo.min.js"></script>
 
 ```
 
