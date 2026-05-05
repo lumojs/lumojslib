@@ -45,7 +45,7 @@ Or
 ## 🧪 Usage
 
 ```js
-lumo.snake(".btn", {
+lumo.snake({
   color: "#00ff88",
   trailCount: 12,
   magnetic: true,

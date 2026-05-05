@@ -1,9 +1,9 @@
 export class Cursor {
-  constructor(selector = "body", options = {}) {
-    this.instance = this.initCursor(selector, options);
+  constructor(options = {}) {
+    this.instance = this.initCursor(options);
   }
 
-  initCursor(selector = "body", options = {}) {
+  initCursor(options = {}) {
     const config = {
       cursorType: options.cursorType || "dot",
       color: options.color || "#38bdf8",
@@ -21,7 +21,7 @@ export class Cursor {
       clickBorderWidth: options.clickBorderWidth || 2,
 
       magnetic: options.magnetic || false,
-      hoverSelector: selector, // ✅ main change
+      hoverSelector: options.hoverSelector || "button, a",
     };
 
     if (config.hideDefaultCursor) {
@@ -98,7 +98,6 @@ export class Cursor {
 
       const offset =
         config.cursorType === "dot" ? config.size / 2 : config.size;
-
       cursor.style.left = curX - offset + "px";
       cursor.style.top = curY - offset + "px";
 
@@ -141,30 +140,30 @@ export class Cursor {
       ripple.style.opacity = "1";
 
       ripple.style.boxShadow = `
-        0 0 10px ${config.clickColor},
-        0 0 20px ${config.clickColor},
-        0 0 40px ${config.clickColor}
-      `;
+      0 0 10px ${config.clickColor},
+      0 0 20px ${config.clickColor},
+      0 0 40px ${config.clickColor}
+    `;
 
       ripple.style.transform = `
-        translate(${e.clientX - config.clickSize / 2}px,
-                  ${e.clientY - config.clickSize / 2}px)
-        scale(0)
-      `;
+      translate(${e.clientX - config.clickSize / 2}px,
+                ${e.clientY - config.clickSize / 2}px)
+      scale(0)
+    `;
 
       ripple.style.transition = `
-        transform ${config.clickDuration}ms ease,
-        opacity ${config.clickDuration}ms ease
-      `;
+      transform ${config.clickDuration}ms ease,
+      opacity ${config.clickDuration}ms ease
+    `;
 
       document.body.appendChild(ripple);
 
       requestAnimationFrame(() => {
         ripple.style.transform = `
-          translate(${e.clientX - config.clickSize / 2}px,
-                    ${e.clientY - config.clickSize / 2}px)
-          scale(1)
-        `;
+        translate(${e.clientX - config.clickSize / 2}px,
+                  ${e.clientY - config.clickSize / 2}px)
+        scale(1)
+      `;
         ripple.style.opacity = "0";
       });
 
@@ -200,6 +199,7 @@ export class Cursor {
       });
     });
 
+    // destroy
     function destroy() {
       document.removeEventListener("mousemove", mouseMoveHandler);
       document.removeEventListener("click", clickHandler);
