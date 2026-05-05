@@ -6,7 +6,7 @@
 </p>
 
 <p style="text-align: center;">
-  <img src="https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/version-1.1.0-green?style=for-the-badge" />
   <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
   <img src="https://img.shields.io/badge/status-active-success?style=for-the-badge" />
   <img src="https://img.shields.io/badge/build-stable-brightgreen?style=for-the-badge" />
