@@ -1,0 +1,191 @@
+export class TextAnimator {
+  constructor(selector, options = {}) {
+    this.selector = selector;
+    this.options = options;
+    this.init();
+  }
+
+  init() {
+    const config = {
+      speed: this.options.speed || 600,
+      stagger: this.options.stagger || 50,
+      direction: this.options.direction || "top",
+      preset: this.options.preset || "fade",
+      blur: this.options.blur ?? null,
+      intensity: this.options.intensity || 8,
+      easing: this.options.easing || ((t) => 1 - Math.pow(1 - t, 3)),
+      custom: this.options.custom || null,
+      trigger: this.options.trigger || "load",
+      loop: this.options.loop || false,
+      reverse: this.options.reverse || false,
+    };
+
+    const presets = {
+      fade: { blur: 6, scale: 0.9 },
+      slide: { blur: 0, scale: 1 },
+      glitch: { blur: 0, scale: 1, glitch: true },
+    };
+
+    const elements = document.querySelectorAll(this.selector);
+
+    elements.forEach((el) => {
+      const text = el.textContent;
+
+      function runAnimation() {
+        el.innerHTML = "";
+        const letters = [];
+
+        const preset = presets[config.preset] || presets.fade;
+        const distance = config.intensity * 3;
+
+        let initial = "";
+        if (config.direction === "top") initial = `translateY(${distance}px)`;
+        if (config.direction === "bottom")
+          initial = `translateY(-${distance}px)`;
+        if (config.direction === "left") initial = `translateX(-${distance}px)`;
+        if (config.direction === "right") initial = `translateX(${distance}px)`;
+
+        const blurValue = config.blur !== null ? config.blur : preset.blur;
+
+        Array.from(text).forEach((char) => {
+          const span = document.createElement("span");
+          span.textContent = char === " " ? "\u00A0" : char;
+
+          span.style.display = "inline-block";
+          span.style.whiteSpace = "pre"; // ✅ ADD THIS
+          span.style.margin = "0"; // ✅ ADD THIS
+          span.style.padding = "0"; // ✅ ADD THIS
+          span.style.opacity = 0;
+
+          if (!preset.glitch && !config.custom) {
+            span.style.transform = initial + ` scale(${preset.scale})`;
+            span.style.filter = `blur(${blurValue}px)`;
+          }
+
+          el.appendChild(span);
+          letters.push(span);
+        });
+
+        letters.forEach((span, i) => {
+          const index = config.reverse ? letters.length - i - 1 : i;
+          const delay = index * config.stagger;
+
+          // 🔥 CUSTOM
+          if (typeof config.custom === "function") {
+            let start = null;
+
+            function animate(t) {
+              if (!start) start = t;
+              const elapsed = t - start;
+
+              if (elapsed < delay) return requestAnimationFrame(animate);
+
+              const progress = Math.min((elapsed - delay) / config.speed, 1);
+              config.custom(progress, span, i);
+
+              if (progress < 1) requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+            return;
+          }
+
+          // 🔥 GLITCH
+          if (preset.glitch) {
+            setTimeout(() => {
+              span.style.opacity = 1;
+
+              let start = null;
+              const duration = config.speed;
+
+              function glitchFrame(t) {
+                if (!start) start = t;
+                const elapsed = t - start;
+                const progress = Math.min(elapsed / duration, 1);
+
+                const jitterX = (Math.random() - 0.5) * config.intensity * 2;
+                const jitterY = (Math.random() - 0.5) * config.intensity;
+
+                span.style.transform = `translate(${jitterX}px, ${jitterY}px)`;
+
+                span.style.textShadow = `
+                    ${jitterX}px 0px rgba(255,0,0,0.8),
+                    ${-jitterX}px 0px rgba(0,255,255,0.8)
+                  `;
+
+                span.style.opacity = Math.random() > 0.3 ? 1 : 0.4;
+
+                if (progress < 1) {
+                  requestAnimationFrame(glitchFrame);
+                } else {
+                  span.style.transform = "translate(0,0)";
+                  span.style.textShadow = "none";
+                  span.style.opacity = 1;
+                }
+              }
+
+              requestAnimationFrame(glitchFrame);
+            }, delay);
+          } else {
+            let start = null;
+
+            function animate(t) {
+              if (!start) start = t;
+              const elapsed = t - start;
+
+              if (elapsed < delay) return requestAnimationFrame(animate);
+
+              const progress = Math.min((elapsed - delay) / config.speed, 1);
+              const ease = config.easing(progress);
+
+              const move = distance * (1 - ease);
+
+              let transform = "";
+              if (config.direction === "top")
+                transform = `translateY(${move}px)`;
+              if (config.direction === "bottom")
+                transform = `translateY(${-move}px)`;
+              if (config.direction === "left")
+                transform = `translateX(${-move}px)`;
+              if (config.direction === "right")
+                transform = `translateX(${move}px)`;
+
+              span.style.opacity = ease;
+              span.style.transform = `${transform} scale(${preset.scale - 0.2 + 0.2 * ease})`;
+
+              span.style.filter = `blur(${blurValue * (1 - ease) * (config.intensity / 8)}px)`;
+
+              if (progress < 1) requestAnimationFrame(animate);
+            }
+
+            requestAnimationFrame(animate);
+          }
+        });
+
+        if (config.loop) {
+          setTimeout(
+            runAnimation,
+            config.speed + text.length * config.stagger + 500,
+          );
+        }
+      }
+
+      // 🔥 trigger
+      if (config.trigger === "scroll") {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              runAnimation();
+              observer.unobserve(el);
+            }
+          });
+        });
+        observer.observe(el);
+      } else if (config.trigger === "hover") {
+        el.addEventListener("mouseenter", runAnimation);
+      } else {
+        runAnimation();
+      }
+    });
+  }
+}

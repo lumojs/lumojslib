@@ -15,6 +15,16 @@
 
 ---
 
+## ✨ Features
+
+- 🎯 Custom cursor animations  
+- ✨ Smooth trailing effects  
+- 💥 Click ripple + glow  
+- 🧲 Magnetic interactions  
+- 🔤 Text animations (fade, slide, glitch)  
+- 😍 Emoji & Unicode support  
+- ⚡ Lightweight & fast 
+
 ## 🚀 About
 
 Lumo.js is a lightweight JavaScript library focused on creating smooth and interactive user experiences.
@@ -30,14 +40,14 @@ It is designed to be:
 ## 📦 CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/lumojs/lumojslib@v1.0.0/dist/lumo.iife.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lumojs/lumojslib@v1.0.0/dist/lumo.min.js"></script>
 
 ```
 
 Or
 
 ```html
-<script src="https://lumojslib.pages.dev/lumo.iife.min.js"></script>
+<script src="https://lumojslib.pages.dev/lumo.min.js"></script>
 
 ```
 ---
@@ -52,6 +62,11 @@ lumo.snake({
   hideDefaultCursor: true
 });
 
+
+lumo.textReveal(".title", {
+  preset: "slide"
+});
+
 ```
 
 ---
@@ -64,7 +79,6 @@ Lumo.js is built with a simple idea:
 
 Instead of adding unnecessary complexity, it focuses on delivering smooth interactions with clean APIs.
 
----
 
 ## 🚀 Future Scope
 
@@ -75,7 +89,6 @@ This library will grow with more features and modules like:
 - Animation utilities  
 - More developer tools  
 
----
 
 ## 📄 License
 

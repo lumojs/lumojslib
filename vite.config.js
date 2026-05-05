@@ -4,15 +4,17 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.js",
-      name: "lumo", // 👈 global name
-      formats: ["iife", "es"], // CDN + modern दोनों
-      fileName: (format) => `lumo.${format}.min.js`
+      name: "lumo",
+      formats: ["iife", "es"],
+      fileName: (format) =>
+        format === "es" ? "lumo.esm.js" : "lumo.min.js"
     },
     rollupOptions: {
       output: {
-        extend: true
+        extend: true,
+        globals: {}
       }
     },
-    minify: "terser" // 👈 CDN के लिए minified build
+    minify: "terser"
   }
 });
