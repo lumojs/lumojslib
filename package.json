@@ -2,16 +2,16 @@
   "name": "lumojs",
   "version": "1.1.0",
   "description": "Lightweight JavaScript library for smooth UI interactions and custom cursor effects",
-  "main": "dist/lumo.iife.min.js",
-  "module": "dist/lumo.es.min.js",
+  "main": "dist/lumo.min.js",
+  "module": "dist/lumo.esm.js",
   "type": "module",
   "scripts": {
     "build": "vite build"
   },
   "exports": {
     ".": {
-      "import": "./dist/lumo.es.min.js",
-      "require": "./dist/lumo.iife.min.js"
+      "import": "./dist/lumo.esm.js",
+      "require": "./dist/lumo.esm.js"
     }
   },
   "keywords": [
