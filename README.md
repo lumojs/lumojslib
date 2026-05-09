@@ -110,7 +110,7 @@ A place focused on building real-world skills and modern tech solutions.
 
 ## 💥 Author
 
-Made with ❤️ by **Sachin**
+Made with ❤️ by **Sachin Singh**
 
 - 💼 Developer  
 - 🌐 Web & UI Enthusiast  
